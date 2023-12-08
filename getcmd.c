@@ -7,6 +7,9 @@ char    *get_cmd(char   *cmd)
     char    *cmd_full;
     struct stat st;
 
+    if (stat(cmd, &st) == 0 && S_ISREG(st.st_mode))
+            return strdup(cmd);
+
     token = strtok(path, ":");
     while (token)
     {
@@ -14,10 +17,8 @@ char    *get_cmd(char   *cmd)
         strcpy(cmd_full, token);
         strcat(cmd_full, "/");
         strcat(cmd_full, cmd);
-        if (stat(cmd_full, &st) == 0)
+        if (stat(cmd_full, &st) == 0 && S_ISREG(st.st_mode))
             return (cmd_full);
-        else if (stat(cmd, &st) == 0 && S_ISREG(st.st_mode))
-            return strdup(cmd);
         free(cmd_full);
         token = strtok(NULL, ":");
     }
