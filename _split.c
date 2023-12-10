@@ -1,19 +1,30 @@
-#include "shell.h"
+#include"shell.h"
 
-char    **split_string(char *buffer, char   *del)
+/**
+ * _split - function that splits 'buffer' by 'del'
+ * @buffer: string
+ * @del: string
+ * Return: returns array of strings
+ */
+
+char **_split(char *buffer, char *del)
 {
-    char    **tokens;
-    char    *token;
-    int i = 0;
+	int i;
+	char *token;
 
-    tokens = malloc(sizeof(char *) * 1024);
-    token = strtok(buffer, " \t\n");
-    while (token)
-    {
-        tokens[i] = token;
-        token = strtok(NULL, del);
-        i++;
-    }
-    tokens[i] = NULL;
-    return (tokens);
+	char **tokens = malloc(sizeof(char *) * 1024);
+
+	if (tokens == NULL)
+		return (NULL);
+
+	i = 0;
+	token = strtok(buffer, DELIM);
+	while (token != NULL && i < 1024 - 1)
+	{
+		tokens[i] = token;
+		token = strtok(NULL, DELIM);
+		i++;
+	}
+	tokens[i] = NULL;
+	return (tokens);
 }

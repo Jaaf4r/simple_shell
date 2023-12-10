@@ -1,26 +1,44 @@
 #include "shell.h"
 
-char    *get_cmd(char   *cmd)
+/**
+ * get_cmd - function that gives the command line
+ * @cmd: string
+ * Return: the command line, otherwise 'NULL'
+ */
+
+char *get_cmd(char *cmd)
 {
-    char    *path = _getenv("PATH");
-    char    *token;
-    char    *cmd_full;
-    struct stat st;
+	char *path = _getenv("PATH");
+	char *token, *path_copy, *full_cmd;
+	struct stat st;
 
-    if (stat(cmd, &st) == 0 && S_ISREG(st.st_mode))
-            return strdup(cmd);
+	if (stat(cmd, &st) == 0 && S_ISREG(st.st_mode))
+		return (_strdup(cmd));
 
-    token = strtok(path, ":");
-    while (token)
-    {
-        cmd_full = malloc(strlen(token) + strlen(cmd) + 2);
-        strcpy(cmd_full, token);
-        strcat(cmd_full, "/");
-        strcat(cmd_full, cmd);
-        if (stat(cmd_full, &st) == 0 && S_ISREG(st.st_mode))
-            return (cmd_full);
-        free(cmd_full);
-        token = strtok(NULL, ":");
-    }
-    return (NULL);
+	path_copy = _strdup(path);
+	if (path_copy == NULL)
+		return (NULL);
+
+	token = strtok(path_copy, ":");
+	while (token != NULL)
+	{
+		full_cmd = malloc(_strlen(token) + _strlen(cmd) + 2);
+		if (full_cmd == NULL)
+		{
+			free(path_copy);
+			return (NULL);
+		}
+		_strcpy(full_cmd, token);
+		_strcat(full_cmd, "/");
+		_strcat(full_cmd, cmd);
+		if (stat(full_cmd, &st) == 0 && S_ISREG(st.st_mode))
+		{
+			free(path_copy);
+			return (full_cmd);
+		}
+		free(full_cmd);
+		token = strtok(NULL, ":");
+	}
+	free(path_copy);
+	return (NULL);
 }

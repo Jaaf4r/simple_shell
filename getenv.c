@@ -1,17 +1,24 @@
 #include "shell.h"
 
-char    *_getenv(const char *env_var)
-{
-    extern char **environ;
-    int i = 0;
-    char    *key;
+/**
+ * _getenv - function searches for a specific env variable and returns
+ * its value
+ * @env_var: env string
+ * Return: returns the variable if found, otherwise 'NULL'
+ */
 
-    while (environ[i])
-    {
-        key = strtok(environ[i], "=");
-        if (strcmp(env_var, key) == 0)
-            return (strtok(NULL, "\n"));
-        i++;
-    }
-    return (NULL);
+char *_getenv(const char *env_var)
+{
+	int i, len;
+
+	i = 0;
+	len = _strlen(env_var);
+	while (environ[i])
+	{
+		if (_strncmp(env_var, environ[i], len) == 0)
+			return (environ[i]);
+		i++;
+	}
+
+	return (NULL);
 }
