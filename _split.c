@@ -10,9 +10,10 @@
 char **_split(char *buffer, char *del)
 {
 	int i;
-	char *token;
+	char *token, **tokens;
+	(void)del;
 
-	char **tokens = malloc(sizeof(char *) * 1024);
+	tokens = malloc(sizeof(char *) * 1024);
 
 	if (tokens == NULL)
 		return (NULL);
