@@ -5,6 +5,11 @@ void error_handle(char *name, char *cmd, int indx);
 char *_itoa(int num);
 void str_rev(char *str, int len);
 
+/**
+ * _free2dArr - function free 2d array
+ * @arr: array
+ */
+
 void _free2dArr(char **arr)
 {
 	int	i = 0;
@@ -20,6 +25,13 @@ void _free2dArr(char **arr)
 	free(arr), arr = NULL;
 }
 
+/**
+ * error_handle - function that handles error
+ * @name: name
+ * @cmd: cmd
+ * @indx: index
+ */
+
 void error_handle(char *name, char *cmd, int indx)
 {
 	char *_index = _itoa(indx);
@@ -34,6 +46,12 @@ void error_handle(char *name, char *cmd, int indx)
 
 	free(_index);
 }
+
+/**
+ * _itoa - function turns number to alphabet
+ * @num: number
+ * Return: return ptr to str
+ */
 
 char *_itoa(int num)
 {
@@ -54,6 +72,12 @@ char *_itoa(int num)
 	str_rev(buffer, i);
 	return (_strdup(buffer));
 }
+
+/**
+ * str_rev - function reverse the 'str'
+ * @str: ptr to str
+ * @len: length of str
+ */
 
 void str_rev(char *str, int len)
 {

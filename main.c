@@ -4,7 +4,6 @@
  * main - function that executes input we type and gives us the output
  * @ac: size of av
  * @av: array size of ac
- * @env: environment
  * Return: returns (0) in Success
  */
 
