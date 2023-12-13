@@ -7,18 +7,26 @@
  * Return: returns the variable if found, otherwise 'NULL'
  */
 
-char *_getenv(const char *env_var)
+char *_getenv(char *env_var)
 {
-	int i, len;
+	int i, var_len;
+	char *temp, *key, *val, *env;
 
 	i = 0;
-	len = _strlen(env_var);
+	var_len = _strlen(env_var);
 	while (environ[i])
 	{
-		if (_strncmp(env_var, environ[i], len) == 0)
-			return (environ[i]);
+		temp = _strdup(environ[i]);
+		key = strtok(temp, "=");
+		if (_strncmp(env_var, key, var_len) == 0)
+		{
+			val = strtok(NULL, "\n");
+			env = _strdup(val);
+			free(temp), temp = NULL;
+			return (env);
+		}
+		free(temp), temp = NULL;
 		i++;
 	}
-
 	return (NULL);
 }

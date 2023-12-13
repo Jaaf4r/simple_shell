@@ -8,39 +8,30 @@
  * Return: returns (0) in Success
  */
 
-int main(int ac, char **av, char **env)
+int main(int ac, char **av)
 {
-	char *buffer, *cmd, **args;
-	size_t buf_size = 0;
-	pid_t pid;
-	int status, n_char;
-
+	char *buffer = NULL, **cmmd = NULL;
+	int status = 0, i = 0;
 	(void)ac;
-	(void)av;
+
 	while (1)
 	{
-		write(1, "$ ", 2);
-		n_char = getline(&buffer, &buf_size, stdin);
-		if (n_char == -1)
+		buffer = _getline();
+		if (buffer == NULL)
 		{
-			write(1, "\n", 1);
-			exit(1);
+			if (isatty(STDIN_FILENO))
+				write(STDOUT_FILENO, "\n", 1);
+			return (status);
 		}
-		args = _split(buffer, " \t\n");
-		if (strcmp(args[0], "exit") == 0)
-			exit(0);
-		pid = fork();
-		if (pid == 0)
-		{
-			cmd = get_cmd(args[0]);
-			if (cmd)
-				execve(cmd, args, env);
-			else
-				printf("Command not found\n");
-			exit(0);
-		}
+		i++;
+
+		cmmd = _split(buffer);
+		if (!cmmd)
+			continue;
+
+		if (_builtin(cmmd[0]))
+			builtins_handler(cmmd, av, &status, i);
 		else
-			wait(&status);
+			status = _exec(cmmd, av, i);
 	}
-	return (0);
 }
