@@ -46,20 +46,20 @@ To install and run the simple shell, follow these steps:
 ## Usage
 
 To start the shell, run the compiled executable:
-    ```sh
+```sh
     ./hsh
-    ```
+```
 You can then enter commands as you would in a regular shell. For example:
-    ```sh
+```sh
     $ ls -l
     $ pwd
     $ cd /path/to/directory
     $ echo "Hello, world!"
-    ```
+```
 To exit the shell, use the exit command:
-    ```sh
+```sh
     $ exit
-    ```
+```
 
 ## Built-in Commands
 
