@@ -63,10 +63,10 @@ To exit the shell, use the exit command:
 
 ## Built-in Commands
 
-- The following built-in commands are supported:
-    - cd [directory]: Change the current directory to the specified directory.
-    - exit [status]: Exit the shell with an optional status code.
-    - env: Print the current environment variables.
+The following built-in commands are supported:
+  - cd [directory]: Change the current directory to the specified directory.
+  - exit [status]: Exit the shell with an optional status code.
+  - env: Print the current environment variables.
 
 ## Acknowledgements
 
